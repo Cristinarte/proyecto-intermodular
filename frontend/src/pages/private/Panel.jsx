@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from "react";
-import "../../assets/css/private/panel.css";
-import { Footer } from "../../layouts/Footer";
-import { VolantesList } from "./VolantesList";
-import { AddVolante } from "./AddVolante";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
-
+import "../../assets/css/private/panel.css"; // Importamos los estilos CSS
+import { Footer } from "../../layouts/Footer"; // Importamos el Footer
+import { VolantesList } from "./VolantesList"; // Importamos el componente VolantesList
+import { AddVolante } from "./AddVolante"; // Importamos el componente AddVolante
+import { useNavigate } from "react-router-dom"; // Usamos useNavigate para redirigir
+import axios from "axios"; // Importamos axios para hacer peticiones HTTP
 
 export const Panel = () => {
-  const [activeTab, setActiveTab] = useState("ver-volantes");
-  const [userData, setUserData] = useState(null);  // Estado para manejar los datos del usuario
-  const navigate = useNavigate();  // Usaremos navigate para redirigir si no hay token
+  const [activeTab, setActiveTab] = useState("ver-volantes"); // Estado que maneja la pestaña activa (Ver Volantes o Añadir Volante)
+  const [userData, setUserData] = useState(null); // Estado para manejar los datos del usuario (como el id)
+  const navigate = useNavigate(); // Usamos navigate para redirigir a otras rutas
 
+  // Función para manejar el clic en las pestañas
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
+    setActiveTab(tab); // Establece la pestaña activa cuando se hace clic
   };
 
+  // useEffect que se ejecuta al cargar el componente
   useEffect(() => {
-    const token = localStorage.getItem("authToken");  // Recupera el token del localStorage
+    // Recuperamos el token de autenticación desde el localStorage
+    const token = localStorage.getItem("authToken");
 
     if (token) {
-      // Hacer la solicitud a la ruta protegida /user para obtener los datos del usuario
+      // Si el token existe, hacemos una petición a la ruta protegida /user para obtener los datos del usuario
       axios
-        .get("http://localhost:8001/api/user", {  // Cambié la ruta a /user, que es válida
+        .get("http://localhost:8001/api/user", {
           headers: {
-            Authorization: `Bearer ${token}`,  // Añades el token en la cabecera
+            Authorization: `Bearer ${token}`, // Añadimos el token en el encabezado de la solicitud
           },
         })
         .then((response) => {
-          console.log("Datos obtenidos:", response.data); // Depuración: muestra los datos
-          setUserData(response.data);  // Guardas la respuesta en el estado
+          console.log("Datos obtenidos:", response.data); // Depuración: muestra los datos obtenidos
+          setUserData(response.data); // Guardamos los datos del usuario en el estado
         })
         .catch((error) => {
           console.error("Error en la solicitud protegida", error);
@@ -43,23 +44,21 @@ export const Panel = () => {
           }
         });
     } else {
-      console.log("No se encontró el token en localStorage");  // Depuración: sin token
+      console.log("No se encontró el token en localStorage"); // Depuración: sin token
       // Si no hay token, redirige al login
       navigate("/login");
     }
-    
-  }, [navigate]);
+  }, [navigate]); // La dependencia es `navigate`, por lo que se ejecuta cada vez que esta cambie
 
-
-
+  // Si no hemos obtenido los datos del usuario, mostramos un mensaje de carga
   if (!userData) {
-    return <div>Cargando...</div>;  // Mientras se obtienen los datos o si el token es inválido
+    return <div>Cargando...</div>;
   }
 
   return (
     <div className="d-flex flex-column min-vh-100 caja">
       <div className="container mt-4 flex-grow-1 content">
-        {/* Menú superior */}
+        {/* Menú de pestañas */}
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <a
@@ -81,12 +80,15 @@ export const Panel = () => {
           </li>
         </ul>
 
-        {/* Contenedor para el contenido de cada pestaña */}
+        {/* Contenedor del contenido de cada pestaña */}
         <div className="mt-4">
-          {activeTab === "ver-volantes" && <VolantesList userId={userData?.id}/>}
-          {activeTab === "anadir-volante" && <AddVolante userId={userData?.id} />} {/* Renderiza AddVolante */}
+          {/* Renderiza el componente VolantesList si la pestaña activa es "ver-volantes" */}
+          {activeTab === "ver-volantes" && <VolantesList userId={userData?.id} />}
+          {/* Renderiza el componente AddVolante si la pestaña activa es "anadir-volante" */}
+          {activeTab === "anadir-volante" && <AddVolante userId={userData?.id} />}
         </div>
       </div>
+      {/* Componente Footer */}
       <Footer className="footer" />
     </div>
   );

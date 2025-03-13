@@ -1,119 +1,147 @@
-
 /*--------------------------------------------------------------
 # Global Footer
 --------------------------------------------------------------*/
+/*
+  Estilos para el pie de página (footer) global del sitio.
+  Este footer incluye varias secciones:
+  1. La parte superior del footer (logo y descripción).
+  2. Los enlaces sociales.
+  3. Los enlaces de navegación.
+  4. Información de contacto y derechos de autor.
+*/
+
+/* Estilo general del footer */
 .footer {
-    color: var(--default-color);
-    background-color: var(--background-color);
-    border-top: 1px solid color-mix(in srgb, var(--accent-color), transparent 75%);
-    font-size: 14px;
-    position: relative;
-  }
-  
-  .footer .footer-top {
-    padding-top: 50px;
-  }
-  
-  .footer .footer-about .logo {
-    line-height: 1;
-    margin-bottom: 25px;
-  }
-  
-  .footer .footer-about .logo img {
-    max-height: 40px;
-    margin-right: 6px;
-  }
-  
-  .footer .footer-about .logo span {
-    color: var(--heading-color);
-    font-family: var(--heading-font);
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-  
-  .footer .footer-about p {
-    font-size: 14px;
-    font-family: var(--heading-font);
-  }
-  
-  .footer .social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
-    font-size: 16px;
-    color: color-mix(in srgb, var(--default-color), transparent 20%);
-    margin-right: 10px;
-    transition: 0.3s;
-  }
-  
-  .footer .social-links a:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-  }
-  
-  .footer h4 {
-    font-size: 16px;
-    font-weight: bold;
-    position: relative;
-    padding-bottom: 12px;
-  }
-  
-  .footer .footer-links {
-    margin-bottom: 30px;
-  }
-  
-  .footer .footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .footer .footer-links ul i {
-    padding-right: 2px;
-    font-size: 12px;
-    line-height: 0;
-  }
-  
-  .footer .footer-links ul li {
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .footer .footer-links ul li:first-child {
-    padding-top: 0;
-  }
-  
-  .footer .footer-links ul a {
-    color: color-mix(in srgb, var(--default-color), transparent 30%);
-    display: inline-block;
-    line-height: 1;
-  }
-  
-  .footer .footer-links ul a:hover {
-    color: var(--accent-color);
-  }
-  
-  .footer .footer-contact p {
-    margin-bottom: 5px;
-  }
-  
-  .footer .copyright {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  }
-  
-  .footer .copyright p {
-    margin-bottom: 0;
-  }
-  
-  .footer .credits {
-    margin-top: 8px;
-    font-size: 13px;
-  }
+  color: var(--default-color); /* Color del texto según la variable default-color */
+  background-color: var(--background-color); /* Color de fondo del footer */
+  border-top: 1px solid color-mix(in srgb, var(--accent-color), transparent 75%); /* Borde superior con mezcla de color */
+  font-size: 14px; /* Tamaño de fuente estándar para el footer */
+  position: relative; /* Posicionamiento relativo para manejar elementos dentro */
+}
+
+/* Estilo para la parte superior del footer */
+.footer .footer-top {
+  padding-top: 50px; /* Espaciado superior para la sección */
+}
+
+/* Estilo para el logo dentro de la sección 'footer-about' */
+.footer .footer-about .logo {
+  line-height: 1; /* Alineación vertical del logo */
+  margin-bottom: 25px; /* Espaciado inferior del logo */
+}
+
+/* Estilo para la imagen del logo */
+.footer .footer-about .logo img {
+  max-height: 40px; /* Altura máxima para el logo */
+  margin-right: 6px; /* Espaciado a la derecha del logo */
+}
+
+/* Estilo para el texto que acompaña al logo */
+.footer .footer-about .logo span {
+  color: var(--heading-color); /* Color del texto */
+  font-family: var(--heading-font); /* Fuente del texto */
+  font-size: 26px; /* Tamaño de fuente */
+  font-weight: 700; /* Negrita */
+  letter-spacing: 1px; /* Espaciado entre las letras */
+}
+
+/* Estilo para el párrafo dentro de la sección 'footer-about' */
+.footer .footer-about p {
+  font-size: 14px; /* Tamaño de fuente */
+  font-family: var(--heading-font); /* Fuente del texto */
+}
+
+/* Estilo para los enlaces de redes sociales */
+.footer .social-links a {
+  display: flex; /* Usa flexbox para alinear los íconos */
+  align-items: center; /* Alineación vertical de los íconos */
+  justify-content: center; /* Centra los íconos horizontalmente */
+  width: 40px; /* Ancho del botón */
+  height: 40px; /* Alto del botón */
+  border-radius: 50%; /* Forma circular */
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%); /* Borde con mezcla de colores */
+  font-size: 16px; /* Tamaño de los íconos */
+  color: color-mix(in srgb, var(--default-color), transparent 20%); /* Color de los íconos */
+  margin-right: 10px; /* Espaciado entre los íconos */
+  transition: 0.3s; /* Transición suave al interactuar */
+}
+
+/* Efecto hover para los enlaces de redes sociales */
+.footer .social-links a:hover {
+  color: var(--accent-color); /* Color cuando se pasa el cursor */
+  border-color: var(--accent-color); /* Color del borde cuando se pasa el cursor */
+}
+
+/* Estilo para los encabezados dentro del footer */
+.footer h4 {
+  font-size: 16px; /* Tamaño del texto del encabezado */
+  font-weight: bold; /* Negrita */
+  position: relative; /* Posicionamiento relativo para controlar elementos dentro */
+  padding-bottom: 12px; /* Espaciado inferior */
+}
+
+/* Estilo para la lista de enlaces dentro del footer */
+.footer .footer-links {
+  margin-bottom: 30px; /* Espaciado inferior */
+}
+
+/* Estilo para las listas dentro de los enlaces del footer */
+.footer .footer-links ul {
+  list-style: none; /* Elimina los puntos de la lista */
+  padding: 0; /* Elimina el padding por defecto */
+  margin: 0; /* Elimina el margen por defecto */
+}
+
+/* Estilo para los íconos dentro de la lista de enlaces */
+.footer .footer-links ul i {
+  padding-right: 2px; /* Espaciado a la derecha del ícono */
+  font-size: 12px; /* Tamaño del ícono */
+  line-height: 0; /* Elimina la altura de línea para que esté alineado correctamente */
+}
+
+/* Estilo para los ítems de la lista de enlaces */
+.footer .footer-links ul li {
+  padding: 10px 0; /* Espaciado vertical entre los ítems */
+  display: flex; /* Usa flexbox para alinear los ítems */
+  align-items: center; /* Alineación vertical de los ítems */
+}
+
+/* Estilo para el primer ítem de la lista de enlaces */
+.footer .footer-links ul li:first-child {
+  padding-top: 0; /* Elimina el espaciado superior del primer ítem */
+}
+
+/* Estilo para los enlaces dentro de la lista de enlaces */
+.footer .footer-links ul a {
+  color: color-mix(in srgb, var(--default-color), transparent 30%); /* Color de los enlaces */
+  display: inline-block; /* Asegura que los enlaces estén en línea */
+  line-height: 1; /* Ajusta la altura de línea para los enlaces */
+}
+
+/* Efecto hover para los enlaces de la lista */
+.footer .footer-links ul a:hover {
+  color: var(--accent-color); /* Cambia el color al pasar el cursor */
+}
+
+/* Estilo para los párrafos dentro de la sección 'footer-contact' */
+.footer .footer-contact p {
+  margin-bottom: 5px; /* Espaciado inferior entre párrafos */
+}
+
+/* Estilo para la sección de derechos de autor */
+.footer .copyright {
+  padding-top: 25px; /* Espaciado superior */
+  padding-bottom: 25px; /* Espaciado inferior */
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%); /* Borde superior con mezcla de colores */
+}
+
+/* Estilo para el párrafo dentro de la sección de derechos de autor */
+.footer .copyright p {
+  margin-bottom: 0; /* Elimina el margen inferior */
+}
+
+/* Estilo para la sección de créditos */
+.footer .credits {
+  margin-top: 8px; /* Espaciado superior */
+  font-size: 13px; /* Tamaño de fuente */
+}

@@ -1,72 +1,78 @@
-@import url('variables.css');
-@import url('style.css');
-
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+/*
+  Estilos para la cabecera (header) global del sitio.
+  Este encabezado incluye el logo, el título, los enlaces de navegación y el botón de llamada a la acción (CTA).
+  También incluye estilos para el menú de navegación y su comportamiento en pantallas pequeñas.
+*/
 
-  .header {
-    color: var(--default-color);
-    transition: all 0.5s;
-    z-index: 997;
-    background-color: var(--background-color);
-  }
-
-  .header a{
-    text-decoration: none;
-  }
-
-  .header h1 {
-    font-size: 25px;
-    margin: 0;
-    font-weight: 700;
-    color: var(--heading-color);
-  }
-
-  .header .cta-btn,
-  .header .cta-btn:focus {
-    color: var(--contrast-color);
-    background: var(--accent-color);
-    font-size: 14px;
-    padding: 8px 25px;
-    margin: 0 0 0 30px;
-    border-radius: 50px;
-    transition: 0.3s;
-  }
-  
-  .header .cta-btn:hover,
-  .header .cta-btn:focus:hover {
-    color: var(--contrast-color);
-    background: color-mix(in srgb, var(--accent-color), transparent 15%);
-  }
-
-  .header .nav-link.active {
-    color: #1977cc !important; /* Cambia el color del texto a azul */
-  }
-  
-
-
-/* Para asegurarse de que el menú no se pegue al logo */
-@media (max-width: 988px) {
-
-  #menu{
-    padding:20px;
-  }
-
-  .navbar-collapse {
-    margin-left: auto; /* Esto asegura que el menú se alinee a la derecha */
-  }
-
-  .navbar-nav {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    text-align: right; /* Alinea el texto a la derecha */
-  }
-
-  .navbar-toggler {
-    margin-left: auto; /* Esto asegura que el botón hamburguesa se quede a la derecha */
-  }
+/* Estilo general para el header */
+.header {
+  color: var(--default-color); /* Color del texto general según la variable default-color */
+  transition: all 0.5s; /* Transición suave para todos los cambios */
+  z-index: 997; /* Asegura que el header quede por encima de otros elementos */
+  background-color: var(--background-color); /* Color de fondo del header */
 }
 
-  
-  
- 
+/* Estilo para los enlaces dentro del header */
+.header a {
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+/* Estilo para el título principal dentro del header */
+.header h1 {
+  font-size: 25px; /* Tamaño de la fuente para el título */
+  margin: 0; /* Elimina el margen por defecto */
+  font-weight: 700; /* Negrita para el título */
+  color: var(--heading-color); /* Color del texto según la variable heading-color */
+}
+
+/* Estilo para el botón de llamada a la acción (CTA) */
+.header .cta-btn,
+.header .cta-btn:focus {
+  color: var(--contrast-color); /* Color del texto dentro del botón */
+  background: var(--accent-color); /* Color de fondo del botón */
+  font-size: 14px; /* Tamaño de la fuente dentro del botón */
+  padding: 8px 25px; /* Espaciado dentro del botón */
+  margin: 0 0 0 30px; /* Margen izquierdo para separar el botón de otros elementos */
+  border-radius: 50px; /* Borde redondeado para hacer el botón circular */
+  transition: 0.3s; /* Transición suave para los cambios */
+}
+
+/* Efecto hover y focus para el botón CTA */
+.header .cta-btn:hover,
+.header .cta-btn:focus:hover {
+  color: var(--contrast-color); /* Color del texto al pasar el cursor */
+  background: color-mix(in srgb, var(--accent-color), transparent 15%); /* Mezcla de color para el fondo al pasar el cursor */
+}
+
+/* Estilo para los enlaces activos de la barra de navegación */
+.header .nav-link.active {
+  color: #1977cc !important; /* Cambia el color del enlace activo a azul */
+}
+
+/* Estilos para el menú en pantallas pequeñas (máximo de 988px de ancho) */
+@media (max-width: 988px) {
+
+/* Estilo para el contenedor del menú */
+#menu {
+  padding: 20px; /* Espaciado alrededor del menú */
+}
+
+/* Estilo para la barra de navegación colapsada */
+.navbar-collapse {
+  margin-left: auto; /* Alinea el menú a la derecha */
+}
+
+/* Estilo para los elementos de la barra de navegación */
+.navbar-nav {
+  width: 100%; /* El menú ocupa todo el ancho disponible */
+  text-align: right; /* Alinea el texto de los enlaces a la derecha */
+}
+
+/* Estilo para el botón hamburguesa */
+.navbar-toggler {
+  margin-left: auto; /* Alinea el botón hamburguesa a la derecha */
+}
+}

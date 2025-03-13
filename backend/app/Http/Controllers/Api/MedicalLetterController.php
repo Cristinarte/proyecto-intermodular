@@ -10,12 +10,27 @@ use Illuminate\Support\Facades\Storage;
 
 class MedicalLetterController extends Controller
 {
+    /**
+     * Obtener todas las cartas médicas del usuario autenticado.
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $medicalLetters = MedicalLetter::where('user_id', auth()->id())->get();
         return response()->json($medicalLetters);
     }
 
+    /**
+     * Crear una nueva carta médica.
+     *
+     * Valida los datos de la solicitud y guarda la nueva carta médica
+     * asociada al usuario autenticado. Si se incluye un archivo en la solicitud,
+     * este se guarda en el sistema de almacenamiento público.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -46,6 +61,12 @@ class MedicalLetterController extends Controller
         return response()->json($medicalLetter, 201);
     }
 
+    /**
+     * Obtener una carta médica específica por ID.
+     * 
+     * @param int $id El ID de la carta médica.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($id)
     {
         $medicalLetter = MedicalLetter::find($id);
@@ -55,6 +76,16 @@ class MedicalLetterController extends Controller
         return response()->json($medicalLetter);
     }
 
+    /**
+     * Actualizar una carta médica existente.
+     * 
+     * Solo se actualizan los campos que son enviados en la solicitud.
+     * Si se incluye un nuevo archivo de carta médica, se guarda en el almacenamiento público.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id El ID de la carta médica a actualizar.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
         Log::info('Datos recibidos para actualizar:', $request->all());
@@ -114,6 +145,12 @@ class MedicalLetterController extends Controller
         ]);
     }
 
+    /**
+     * Eliminar una carta médica existente.
+     * 
+     * @param int $id El ID de la carta médica a eliminar.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id)
     {
         $medicalLetter = MedicalLetter::find($id);

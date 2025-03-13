@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export const EditVolante = ({ volante, setEditingVolante, onVolanteUpdated }) => {
-  const [nombrePaciente, setNombrePaciente] = useState(volante.name_children || "");
-  const [especialista, setEspecialista] = useState(volante.specialist_name || "");
-  const [lugar, setLugar] = useState(volante.visit_place || "");
-  const [fecha, setFecha] = useState(volante.visit_date || "");
-  const [volanteFile, setVolanteFile] = useState(null);
-  const [error, setError] = useState("");
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // Estado para el modal
+  // Estados para manejar los campos del formulario, los errores y el estado del modal
+  const [nombrePaciente, setNombrePaciente] = useState(volante.name_children || ""); // Nombre del paciente
+  const [especialista, setEspecialista] = useState(volante.specialist_name || ""); // Especialista
+  const [lugar, setLugar] = useState(volante.visit_place || ""); // Lugar de la consulta
+  const [fecha, setFecha] = useState(volante.visit_date || ""); // Fecha de la consulta
+  const [volanteFile, setVolanteFile] = useState(null); // Archivo del volante (imagen)
+  const [error, setError] = useState(""); // Estado para los errores
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Estado para el modal de éxito
 
+  // Maneja el cambio de los campos de texto en el formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "nombrePaciente") setNombrePaciente(value);
@@ -18,29 +20,34 @@ export const EditVolante = ({ volante, setEditingVolante, onVolanteUpdated }) =>
     if (name === "fecha") setFecha(value);
   };
 
+  // Maneja el cambio del archivo de volante (imagen)
   const handleFileChange = (e) => {
-    setVolanteFile(e.target.files[0]);
+    setVolanteFile(e.target.files[0]); // Almacena el archivo seleccionado
   };
 
+  // Función para enviar los datos del formulario
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevenimos el comportamiento por defecto del formulario
 
+    // Obtenemos el token de autenticación del almacenamiento local
     const token = localStorage.getItem("authToken");
     if (!token) {
       setError("No se ha encontrado el token de autenticación");
       return;
     }
 
+    // Preparamos los datos para enviarlos al backend
     const formData = new FormData();
     formData.append("name_children", nombrePaciente);
     formData.append("specialist_name", especialista);
     formData.append("visit_place", lugar);
     formData.append("visit_date", fecha);
     if (volanteFile) {
-      formData.append("file_path", volanteFile);
+      formData.append("file_path", volanteFile); // Solo si hay un nuevo archivo, lo agregamos
     }
-    formData.append("_method", "PUT");
+    formData.append("_method", "PUT"); // Indicamos que es una actualización (PUT)
 
+    // Mostramos los datos antes de enviarlos (solo para depuración)
     console.log("Datos enviados:", {
       name_children: nombrePaciente,
       specialist_name: especialista,
@@ -50,39 +57,46 @@ export const EditVolante = ({ volante, setEditingVolante, onVolanteUpdated }) =>
     });
 
     try {
+      // Enviamos la solicitud PUT al backend para actualizar el volante
       const response = await axios.post(
-        `http://localhost:8001/api/medical/${volante.id}`,
+        `http://localhost:8001/api/medical/${volante.id}`, // Utilizamos el ID del volante para la URL
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data", // Indicamos que enviamos un formulario con archivos
+            Authorization: `Bearer ${token}`, // Añadimos el token de autenticación en la cabecera
           },
         }
       );
 
       console.log("Respuesta del servidor:", response.data);
 
-      // Mostrar el modal en lugar de un alert
+      // Mostramos el modal de éxito
       setShowSuccessModal(true);
 
+      // Si se pasa la función `onVolanteUpdated`, la ejecutamos con los datos actualizados
       if (onVolanteUpdated) {
         onVolanteUpdated(response.data.volante);
       }
     } catch (error) {
+      // En caso de error, mostramos un mensaje de error
       console.error("Error al actualizar el volante:", error.response?.data || error.message);
       setError("Error al actualizar el volante. Intenta nuevamente.");
     }
   };
 
+  // Función para cerrar el modal de éxito y volver al estado inicial
   const handleCloseModal = () => {
-    setShowSuccessModal(false);
-    setEditingVolante(null); // Cierra el formulario después de cerrar el modal
+    setShowSuccessModal(false); // Cerramos el modal
+    setEditingVolante(null); // Terminamos la edición del volante
   };
 
   return (
     <div>
+      {/* Título del formulario */}
       <h3>Editar Volante</h3>
+
+      {/* Formulario para editar el volante */}
       <form onSubmit={handleSubmit} className="formulario">
         <div className="mb-3">
           <label htmlFor="nombrePaciente" className="form-label">
@@ -149,10 +163,14 @@ export const EditVolante = ({ volante, setEditingVolante, onVolanteUpdated }) =>
             className="form-control"
             id="volante"
             name="volante"
-            onChange={handleFileChange}
+            onChange={handleFileChange} // Cambia el archivo de volante
           />
         </div>
+
+        {/* Si hay un error, se muestra en rojo */}
         {error && <p className="text-danger">{error}</p>}
+
+        {/* Botones de guardar y cancelar */}
         <div className="d-flex justify-content-end gap-2">
           <button type="submit" className="btn btn-primary">
             Guardar cambios
@@ -160,14 +178,14 @@ export const EditVolante = ({ volante, setEditingVolante, onVolanteUpdated }) =>
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => setEditingVolante(null)}
+            onClick={() => setEditingVolante(null)} // Cancela la edición
           >
             Cancelar
           </button>
         </div>
       </form>
 
-      {/* Modal de éxito */}
+      {/* Modal de éxito al guardar los cambios */}
       {showSuccessModal && (
         <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
           <div className="modal-dialog">

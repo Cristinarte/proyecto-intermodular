@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens; 
-
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -15,43 +13,54 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasApiTokens;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Los atributos que son asignables de manera masiva (mass assignable).
+     * 
+     * Estos atributos pueden ser asignados usando métodos como `create()` o `update()`.
+     * 
+     * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',      // Nombre del usuario
+        'email',     // Correo electrónico del usuario
+        'password',  // Contraseña del usuario
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Los atributos que deben ser ocultados para la serialización.
+     * 
+     * Estos atributos no serán incluidos cuando se convierta el modelo a JSON.
+     * 
+     * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password',        // La contraseña del usuario
+        'remember_token',  // El token de "recordar sesión"
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Los atributos que deben ser casteados a un tipo específico.
+     * 
+     * Esto se utiliza para transformar automáticamente ciertos atributos cuando se accede a ellos.
+     * 
+     * @return array
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime', // Convierte el campo 'email_verified_at' a un objeto de tipo datetime
+            'password' => 'hashed',            // Convierte el campo 'password' a un tipo 'hashed' para mayor seguridad
         ];
     }
 
-    // Relación uno a muchos con medical_letters
+    /**
+     * Relación uno a muchos con el modelo MedicalLetter.
+     * 
+     * Un usuario puede tener múltiples cartas médicas (MedicalLetter).
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function medicalLetters()
     {
-        return $this->hasMany(MedicalLetter::class);
+        return $this->hasMany(MedicalLetter::class); // Un usuario puede tener muchas cartas médicas
     }
-
 }

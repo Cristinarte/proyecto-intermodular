@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { VolantesList } from "./VolantesList"; // Importamos VolantesList
+import { VolantesList } from "./VolantesList"; // Importamos VolantesList para mostrar la lista de volantes
 
 export const AddVolante = ({ userId }) => {
-  const [nombrePaciente, setNombrePaciente] = useState("");
-  const [especialista, setEspecialista] = useState("");
-  const [lugar, setLugar] = useState("");
-  const [fecha, setFecha] = useState("");
-  const [volante, setVolante] = useState(null);
-  const [error, setError] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [showVolantesList, setShowVolantesList] = useState(false); // Estado para mostrar VolantesList
+  // Estados para los campos del formulario y mensajes de error
+  const [nombrePaciente, setNombrePaciente] = useState(""); // Nombre del paciente
+  const [especialista, setEspecialista] = useState(""); // Nombre del especialista
+  const [lugar, setLugar] = useState(""); // Lugar de la consulta médica
+  const [fecha, setFecha] = useState(""); // Fecha de la consulta
+  const [volante, setVolante] = useState(null); // Archivo del volante (imagen)
+  const [error, setError] = useState(""); // Estado para mostrar errores
+  const [showModal, setShowModal] = useState(false); // Controla la visibilidad del modal
+  const [showVolantesList, setShowVolantesList] = useState(false); // Controla la visibilidad de la lista de volantes
 
+  // Función para manejar el cambio de valor de los campos de texto
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "nombrePaciente") setNombrePaciente(value);
@@ -21,50 +23,57 @@ export const AddVolante = ({ userId }) => {
     if (name === "fecha") setFecha(value);
   };
 
+  // Función para manejar el cambio de archivo
   const handleFileChange = (e) => {
-    setVolante(e.target.files[0]);
+    setVolante(e.target.files[0]); // Almacena el archivo del volante seleccionado
   };
 
+  // Función para enviar los datos del formulario
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevenimos el comportamiento por defecto del formulario
 
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("authToken"); // Obtenemos el token de autenticación
     if (!token) {
       setError("No se ha encontrado el token de autenticación");
       return;
     }
 
+    // Preparamos los datos del formulario para enviarlos
     const formData = new FormData();
     formData.append("name_children", nombrePaciente);
     formData.append("specialist_name", especialista);
-    formData.append("file_path", volante);
+    formData.append("file_path", volante); // Archivo de la imagen del volante
     formData.append("visit_place", lugar);
     formData.append("visit_date", fecha);
-    formData.append("user_id", userId);
+    formData.append("user_id", userId); // ID del usuario
 
     try {
+      // Realizamos la solicitud POST al backend
       await axios.post("http://localhost:8001/api/medical", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // Indicamos que estamos enviando un formulario con archivos
+          Authorization: `Bearer ${token}`, // Añadimos el token de autorización
         },
       });
 
-      setError("");
-      setShowModal(true);
+      setError(""); // Reseteamos cualquier error previo
+      setShowModal(true); // Mostramos el modal de éxito
     } catch (error) {
+      // En caso de error, mostramos el mensaje correspondiente
       console.error("Error al agregar el volante", error.response || error);
       setError("Error al agregar el volante. Intenta nuevamente.");
     }
   };
 
+  // Función para cerrar el modal y mostrar la lista de volantes
   const handleCloseModal = () => {
-    setShowModal(false);
-    setShowVolantesList(true); // Mostrar VolantesList
+    setShowModal(false); // Cerramos el modal
+    setShowVolantesList(true); // Mostramos la lista de volantes
   };
 
   return (
     <div>
+      {/* Si no estamos mostrando la lista de volantes, mostramos el formulario */}
       {!showVolantesList ? (
         <form onSubmit={handleSubmit} className="formulario">
           <div className="mb-3">
@@ -129,14 +138,14 @@ export const AddVolante = ({ userId }) => {
               required
             />
           </div>
-          {error && <p className="text-danger">{error}</p>}
-          <button type="submit" className="btn btn-primary">Enviar</button>
+          {error && <p className="text-danger">{error}</p>} {/* Si hay error, lo mostramos */}
+          <button type="submit" className="btn btn-primary">Enviar</button> {/* Botón para enviar el formulario */}
         </form>
       ) : (
-        <VolantesList /> // Si el estado es true, renderiza VolantesList
+        <VolantesList /> // Si el estado showVolantesList es true, mostramos la lista de volantes
       )}
 
-      {/* MODAL DE BOOTSTRAP */}
+      {/* Modal de Bootstrap para confirmar la acción */}
       {showModal && (
         <div className="modal fade show d-block" tabIndex="-1">
           <div className="modal-dialog">
@@ -146,7 +155,7 @@ export const AddVolante = ({ userId }) => {
                 <button type="button" className="btn-close" onClick={handleCloseModal}></button>
               </div>
               <div className="modal-body">
-                <p>Volante agregado con éxito.</p>
+                <p>Volante agregado con éxito.</p> {/* Mensaje de confirmación */}
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-success" onClick={handleCloseModal}>

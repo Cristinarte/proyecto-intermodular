@@ -9,20 +9,36 @@ class MedicalLetter extends Model
 {
     use HasFactory;
 
-    // Indica la tabla que el modelo está utilizando
+    /**
+     * La tabla asociada al modelo.
+     *
+     * @var string
+     */
     protected $table = 'medical_letters';
 
-    // Los campos que se pueden asignar masivamente (mass assignment)
+    /**
+     * Los atributos que son asignables de manera masiva (mass assignable).
+     * 
+     * Estos atributos pueden ser asignados usando métodos como `create()` o `update()`.
+     * 
+     * @var array
+     */
     protected $fillable = [
-        'user_id',         // Relacion con el usuario
+        'user_id',         // Relación con el usuario
         'name_children',   // Nombre del niño
         'file_path',       // Ruta de la imagen
         'visit_place',     // Lugar de la visita
         'visit_date',      // Fecha de la visita
-        'specialist_name',  //Nombre del especialista    
+        'specialist_name', // Nombre del especialista
     ];
 
-    // Relación con el modelo de usuario (si tienes un modelo User)
+    /**
+     * Relación inversa con el modelo User.
+     * 
+     * Un "MedicalLetter" pertenece a un "User".
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class); // Relación inversa (un MedicalLetter pertenece a un User)
