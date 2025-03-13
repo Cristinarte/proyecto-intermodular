@@ -1,0 +1,28 @@
+
+
+/* Encabezado del modal */
+.modal-header {
+  background-color: #1977cc; /* Verde menta */
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-weight: bold;
+}
+
+/* Botón de cerrar */
+.modal-header .btn-close {
+  filter: invert(1); /* Hace el botón más visible */
+}
+
+/* Cuerpo del modal */
+.modal-body {
+  background-color: #f7f7f7; /* Gris clarito para el fondo del cuerpo */
+  padding: 20px;
+  color: #333; /* Color de texto más oscuro para mejorar la legibilidad */
+}
+
+.modal-nav .btn-primary {
+  background-color: #1977cc;
+  border: none;
+  color: white;
+}

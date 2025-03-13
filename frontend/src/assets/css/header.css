@@ -1,0 +1,72 @@
+@import url('variables.css');
+@import url('style.css');
+
+/*--------------------------------------------------------------
+# Global Header
+--------------------------------------------------------------*/
+
+  .header {
+    color: var(--default-color);
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: var(--background-color);
+  }
+
+  .header a{
+    text-decoration: none;
+  }
+
+  .header h1 {
+    font-size: 25px;
+    margin: 0;
+    font-weight: 700;
+    color: var(--heading-color);
+  }
+
+  .header .cta-btn,
+  .header .cta-btn:focus {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-size: 14px;
+    padding: 8px 25px;
+    margin: 0 0 0 30px;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+  
+  .header .cta-btn:hover,
+  .header .cta-btn:focus:hover {
+    color: var(--contrast-color);
+    background: color-mix(in srgb, var(--accent-color), transparent 15%);
+  }
+
+  .header .nav-link.active {
+    color: #1977cc !important; /* Cambia el color del texto a azul */
+  }
+  
+
+
+/* Para asegurarse de que el menú no se pegue al logo */
+@media (max-width: 988px) {
+
+  #menu{
+    padding:20px;
+  }
+
+  .navbar-collapse {
+    margin-left: auto; /* Esto asegura que el menú se alinee a la derecha */
+  }
+
+  .navbar-nav {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    text-align: right; /* Alinea el texto a la derecha */
+  }
+
+  .navbar-toggler {
+    margin-left: auto; /* Esto asegura que el botón hamburguesa se quede a la derecha */
+  }
+}
+
+  
+  
+ 

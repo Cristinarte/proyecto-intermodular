@@ -1,0 +1,16 @@
+/* Panel.css */
+.caja {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Hace que el panel ocupe toda la pantalla */
+    background-color: #f1f7fc;
+  }
+  
+  .content {
+    flex-grow: 1; /* Hace que el contenido empuje el footer al fondo */
+
+  }
+
+  .footer{
+    background-color: white;
+  }

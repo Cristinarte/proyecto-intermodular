@@ -1,0 +1,29 @@
+/* Asegúrate de que la tabla no se desborde en pantallas pequeñas */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Estilo para las cabeceras de la tabla */
+
+
+  /* Mejorar la apariencia en pantallas pequeñas */
+  @media (max-width: 991px) {
+    .table th,
+    .table td {
+      padding: 8px; /* Reducir el espacio entre las celdas en pantallas pequeñas */
+    }
+  
+    .table {
+      font-size: 14px; /* Reducir el tamaño de la fuente */
+    }
+  
+    .btn {
+      width: 100%; /* Botones de acción más grandes en pantallas pequeñas */
+      margin-bottom: 5px;
+    }
+  
+    h3 {
+      font-size: 1.5rem; /* Ajustar el tamaño del título en pantallas pequeñas */
+    }
+  }
+  
